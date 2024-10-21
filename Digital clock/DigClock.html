@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="white-digital.jpg">"
+    <title>⏰Digital Clock⏰</title>
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:200,300,400,500,600,700,800,900&display=swap');
+
+        *{
+            font-family: 'Orbitron', sans-serif;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;   
+        }
+        body{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #1A202C;
+        }
+
+        /* time */
+        #time{
+            display: flex;
+            gap: 40px;
+            color: white;
+        }
+        #time .circle{
+            position: relative;
+            width: 150px;
+            height: 150px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        #time div {
+            position: absolute;
+            text-align: center;
+            font-weight: 500;
+            font-size: 1.5em;
+        }
+        #time .circle svg{
+            position: relative;
+            width: 150px;
+            height: 150px;
+            transform: rotate(270deg); 
+            
+           
+        }
+        /*circles style and rotation animation*/
+        #time .circle svg circle{
+            width: 100%;
+            height: 100%;
+            fill: transparent;
+            stroke: #f8f8f8;
+            stroke-width:2.5px;
+            transform-origin: center;
+            stroke-dasharray: 40;
+            transform: translate(5px 5px);
+            box-shadow : 10px 10px 20px var(--clr), 10px 10px 60px var(--clr);
+            animation: circles 6s linear infinite;
+        }
+        @keyframes circles{
+            0%{
+                transform: rotate(0deg);
+                stroke: rgb(0, 255, 0);
+                border-radius: 50px;
+            }
+            50%{
+                transform: rotate(180deg);
+                stroke-width: 5px;
+                border-radius: 50px;
+            }
+            100%{
+                transform: rotate(-360deg);
+                stroke: rgb(255, 255, 255);
+                border-radius: 50px;
+            }
+        
+        }
+        #time .circle svg circle:nth-child(2){
+            stroke-dasharray: 20;
+            stroke-dashoffset: 20;
+            stroke: var(--clr);
+            animation: circle 6s linear infinite;
+        }
+        @keyframes circle{
+            0%{
+                transform: rotate(0deg);
+                border-radius: 50px;
+            }
+            50%{
+                transform: rotate(-180deg);
+                border-radius: 50px;
+            }
+            100%{
+                transform: rotate(360deg);
+                border-radius: 50px;
+            }
+        }
+    
+        #time div span{
+            position: absolute;
+            margin: 8px 0 0 23px;
+            display: flex;
+            transform: translateX(-50%) translateY(-10px);
+            font-size: 0.35em;
+            font-weight: 300;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: #ff00bf;
+        }
+        #time .ap{
+            position: relative;
+            font: 1em;
+            transform: translateX(-20px);
+            stroke-dasharray: 20;
+            stroke-dashoffset: 20;
+            color: rgb(0, 229, 255);
+        }
+    </style>
+
+</head>
+
+<body>
+    <div id="time">
+        <div class="circle" style="--clr:#0011ff;">
+            
+            <svg>
+                <circle cx="75" cy="75" r="70"></circle>
+                <circle cx="75" cy="75" r="50" stroke="#F2F2F2" stroke-width="10"></circle>
+            </svg>
+
+            <div id="hours">00</div>
+        </div>
+
+        <div class="circle" style="--clr:#f6ff00;">
+            
+            <svg>
+                <circle cx="75" cy="75" r="70"></circle>
+                <circle cx="75" cy="75" r="50" stroke="#F2F2F2" stroke-width="10"></circle>
+            </svg>
+            <div id="minutes">00</div>
+        </div>
+
+        <div class="circle" style="--clr:#d000ff;">
+            
+            <svg>
+                <circle cx="75" cy="75" r="70"></circle>
+                <circle cx="75" cy="75" r="50" stroke="#F2F2F2" stroke-width="10"></circle>
+            </svg>
+            <div id="seconds">00</div>
+        </div>
+
+        <div class="ap">
+            
+            <div id="ampm">AM</div>
+        </div>
+        
+    </div>
+
+
+    <script>
+
+        setInterval(() => {
+        let hours = document.getElementById("hours");    
+        let minutes = document.getElementById("minutes");
+        let seconds = document.getElementById("seconds");
+        let ampm = document.getElementById("ampm");
+        
+        let h = new Date().getHours();
+        let m = new Date().getMinutes();
+        let s = new Date().getSeconds();
+        let am = h >= 12 ? "PM" : "AM";
+        
+
+        // convert 24hrs clock to 12hrs clock
+        if(h > 12){
+            h = h - 12;
+        }
+        //add zero before single digit number
+        h = (h < 10) ? "0" + h : h;
+        m = (m < 10) ? "0" + m : m;
+        s = (s < 10) ? "0" + s : s;
+
+
+        hours.innerHTML= h + "<br><span>Hours</span>";
+        minutes.innerHTML= m  + "<br><span>Min</span>";
+        seconds.innerHTML= s  + "<br><span>Sec</span>";
+        ampm.innerHTML= am;
+
+        // 12hrs clock
+        h.style.strokeDashoffset = 440 - (440 * h)/12;
+        m.style.strokeDashoffset = 440 - (440 * m)/60;
+        s.style.strokeDashoffset = 440 - (440 * s)/60;
+
+        })
+        
+    </script>
+</body>
+</html>
