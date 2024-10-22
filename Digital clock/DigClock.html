@@ -114,13 +114,8 @@
             text-transform: uppercase;
             color: #ff00bf;
         }
-        #time .ap{
-            position: relative;
-            font: 1em;
-            transform: translateX(-20px);
-            stroke-dasharray: 20;
-            stroke-dashoffset: 20;
-            color: rgb(0, 229, 255);
+        #time div #ampm{
+            color: rgb(0, 234, 255)
         }
     </style>
 
@@ -156,8 +151,11 @@
             <div id="seconds">00</div>
         </div>
 
-        <div class="ap">
-            
+        <div class="circle" style="--clr:#ff0000;">
+            <svg>
+                <circle cx="75" cy="75" r="70"></circle>
+                <circle cx="75" cy="75" r="50" stroke="#F2F2F2" stroke-width="10"></circle>
+            </svg>
             <div id="ampm">AM</div>
         </div>
         
